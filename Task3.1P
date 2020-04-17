@@ -1,0 +1,29 @@
+
+int boardLed = D7; // LED 
+
+int moisture_pin = A1; //  moisture sensor
+
+
+
+void setup() {
+  pinMode(boardLed,OUTPUT); // LED
+  pinMode(moisture_pin,INPUT);  // moisture sensor 
+
+}
+
+
+void loop() {
+   
+
+    digitalWrite(boardLed,HIGH);
+   
+    int moisture_analog = analogRead(moisture_pin); 
+    String moisture = String(100 - ( (moisture_analog/4095.00) * 100 ) );
+
+   
+    Particle.publish("Moisture", moisture, PRIVATE);
+    delay(10000);
+    digitalWrite(boardLed,LOW);
+   
+    delay(10000);
+}
